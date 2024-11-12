@@ -10,7 +10,7 @@ function relativeDifference(a, b) {
 }
 
 class Point2d {
-    constructor (x = 0, y = 0) {
+    constructor(x = 0, y = 0) {
         this.x = x;
         this.y = y;
     }
@@ -32,7 +32,7 @@ class Point2d {
     }
 
     static distance(pa, pb) {
-        return Math.sqrt((pa.x - pb.x)*(pa.x - pb.x) + (pa.y - pb.y)*(pa.y - pb.y))
+        return Math.sqrt((pa.x - pb.x) * (pa.x - pb.x) + (pa.y - pb.y) * (pa.y - pb.y))
     }
 }
 
@@ -61,7 +61,7 @@ class Point3d {
     }
 
     static distance(pa, pb) {
-        return Math.sqrt((pa.x - pb.x)*(pa.x - pb.x) + (pa.y - pb.y)*(pa.y - pb.y) + (pa.z - pb.z)*(pa.z - pb.z))
+        return Math.sqrt((pa.x - pb.x) * (pa.x - pb.x) + (pa.y - pb.y) * (pa.y - pb.y) + (pa.z - pb.z) * (pa.z - pb.z))
     }
 
     static translate(vp1, vp2) {
@@ -173,33 +173,33 @@ class Matrix {
 
     // Copy constructor
     static copy(matrix) {
-        return new Matrix(matrix.a11, matrix.a12, matrix.a13, 
-                          matrix.a21, matrix.a22, matrix.a23, 
-                          matrix.a31, matrix.a32, matrix.a33);
+        return new Matrix(matrix.a11, matrix.a12, matrix.a13,
+            matrix.a21, matrix.a22, matrix.a23,
+            matrix.a31, matrix.a32, matrix.a33);
     }
 
     static multiply(mn1, mn2) {
         if (mn1 instanceof Matrix && mn2 instanceof Matrix) {
-            return new Matrix(mn1.a11*mn2.a11 + mn1.a12*mn2.a21 + mn1.a13*mn2.a31,
-                              mn1.a11*mn2.a12 + mn1.a12*mn2.a22 + mn1.a13*mn2.a32,
-                              mn1.a11*mn2.a13 + mn1.a12*mn2.a23 + mn1.a13*mn2.a33,
-                              mn1.a21*mn2.a11 + mn1.a22*mn2.a21 + mn1.a23*mn2.a31,
-                              mn1.a21*mn2.a12 + mn1.a22*mn2.a22 + mn1.a23*mn2.a32,
-                              mn1.a21*mn2.a13 + mn1.a22*mn2.a23 + mn1.a23*mn2.a33,
-                              mn1.a31*mn2.a11 + mn1.a32*mn2.a21 + mn1.a33*mn2.a31,
-                              mn1.a31*mn2.a12 + mn1.a32*mn2.a22 + mn1.a33*mn2.a32,
-                              mn1.a31*mn2.a13 + mn1.a32*mn2.a23 + mn1.a33*mn2.a33
+            return new Matrix(mn1.a11 * mn2.a11 + mn1.a12 * mn2.a21 + mn1.a13 * mn2.a31,
+                mn1.a11 * mn2.a12 + mn1.a12 * mn2.a22 + mn1.a13 * mn2.a32,
+                mn1.a11 * mn2.a13 + mn1.a12 * mn2.a23 + mn1.a13 * mn2.a33,
+                mn1.a21 * mn2.a11 + mn1.a22 * mn2.a21 + mn1.a23 * mn2.a31,
+                mn1.a21 * mn2.a12 + mn1.a22 * mn2.a22 + mn1.a23 * mn2.a32,
+                mn1.a21 * mn2.a13 + mn1.a22 * mn2.a23 + mn1.a23 * mn2.a33,
+                mn1.a31 * mn2.a11 + mn1.a32 * mn2.a21 + mn1.a33 * mn2.a31,
+                mn1.a31 * mn2.a12 + mn1.a32 * mn2.a22 + mn1.a33 * mn2.a32,
+                mn1.a31 * mn2.a13 + mn1.a32 * mn2.a23 + mn1.a33 * mn2.a33
             );
         }
         else if (mn2 instanceof Matrix) {
-            return new Matrix(mn1*mn2.a11, mn1*mn2.a12, mn1*mn2.a13, 
-                              mn1*mn2.a21, mn1*mn2.a22, mn1*mn2.a23, 
-                              mn1*mn2.a31, mn1*mn2.a32, mn1*mn2.a33);
+            return new Matrix(mn1 * mn2.a11, mn1 * mn2.a12, mn1 * mn2.a13,
+                mn1 * mn2.a21, mn1 * mn2.a22, mn1 * mn2.a23,
+                mn1 * mn2.a31, mn1 * mn2.a32, mn1 * mn2.a33);
         }
         else {
-            return new Matrix(mn2*mn1.a11, mn2*mn1.a12, mn1*mn1.a13, 
-                mn2*mn1.a21, mn2*mn1.a22, mn2*mn1.a23, 
-                mn2*mn1.a31, mn2*mn1.a32, mn2*mn1.a33);
+            return new Matrix(mn2 * mn1.a11, mn2 * mn1.a12, mn1 * mn1.a13,
+                mn2 * mn1.a21, mn2 * mn1.a22, mn2 * mn1.a23,
+                mn2 * mn1.a31, mn2 * mn1.a32, mn2 * mn1.a33);
         }
     }
 
@@ -213,9 +213,9 @@ class Matrix {
 
     static inverse(matrix) {
         const det = matrix.a11 * (matrix.a22 * matrix.a33 - matrix.a32 * matrix.a23) -
-                    matrix.a12 * (matrix.a21 * matrix.a33 - matrix.a31 * matrix.a23) +
-                    matrix.a13 * (matrix.a21 * matrix.a32 - matrix.a31 * matrix.a22);
-        
+            matrix.a12 * (matrix.a21 * matrix.a33 - matrix.a31 * matrix.a23) +
+            matrix.a13 * (matrix.a21 * matrix.a32 - matrix.a31 * matrix.a22);
+
         if (relativeDifference(det, 0) < REL_TOLERANCE) {
             throw new Error("Matrix is not invertible");
         }
@@ -236,9 +236,9 @@ class Matrix {
     }
 
     static multiply_by_point(matrix, point) {
-        return new Point3d(matrix.a11*point.x + matrix.a12*point.y + matrix.a13*point.z,
-                         matrix.a21*point.x + matrix.a22*point.y + matrix.a23*point.z,
-                         matrix.a31*point.x + matrix.a32*point.y + matrix.a33*point.z);
+        return new Point3d(matrix.a11 * point.x + matrix.a12 * point.y + matrix.a13 * point.z,
+            matrix.a21 * point.x + matrix.a22 * point.y + matrix.a23 * point.z,
+            matrix.a31 * point.x + matrix.a32 * point.y + matrix.a33 * point.z);
     }
 }
 
@@ -282,7 +282,7 @@ class C3DView {
         xe0, ye0, ewidth, eheight,                      // screen window in pixels
         screen_dist = 0.5,                              // typical eye distance from the screen
         screen_width = 0, screen_height = 0) {          // physical description of the screen in meters
-        
+
         let center = new Point3d(0, 0, 0);
         let vertical = new Vector(0, 0, 1);
 
@@ -315,7 +315,7 @@ class C3DView {
     point_3d(p) {
         let newp = Point3d.translate(p, this.f_R);
         newp = Matrix.multiply_by_point(this.M, newp);
-        
+
         if (relativeDifference(newp.z, 0) < REL_TOLERANCE) {
             // If newp.z is too close to zero, return false to indicate invalid transformation
             return false;
@@ -351,10 +351,10 @@ class C3DView {
 
 // global variables
 var canvas_id = "mainCanvas",
-	canvas = document.getElementById(canvas_id),
-	ctx = canvas.getContext("2d"),
-	width,
-	height,
+    canvas = document.getElementById(canvas_id),
+    ctx = canvas.getContext("2d"),
+    width,
+    height,
     R = 40,                     // You
     FI = 60,                    //
     TETA = 80,                  //
@@ -362,38 +362,36 @@ var canvas_id = "mainCanvas",
     R_obs = 5,                  // Virtual observer
     FI_obs = 120,               // 
     TETA_obs = 60;              // 
-    
- const e_dist = 0.5,
-    e_width = 1, 
+
+const e_dist = 0.5,
+    e_width = 1,
     e_height = 0.8;
 
 // Cube vertices
 const k = [
-    new Point3d(1, 1, -1),  new Point3d(-1, 1, -1), new Point3d(-1, -1, -1), new Point3d(1, -1, -1),
-    new Point3d(1, 1, 1),   new Point3d(-1, 1, 1),  new Point3d(-1, -1, 1),  new Point3d(1, -1, 1)
+    new Point3d(1, 1, -1), new Point3d(-1, 1, -1), new Point3d(-1, -1, -1), new Point3d(1, -1, -1),
+    new Point3d(1, 1, 1), new Point3d(-1, 1, 1), new Point3d(-1, -1, 1), new Point3d(1, -1, 1)
 ];
 
 // helper functions
 function _(d) {
-	return document.getElementById(d)
+    return document.getElementById(d)
 }
 
-function setPixel(x, y, r, g, b)
-{
-	if (typeof g !== "undefined" && typeof b !== "undefined")
-		ctx.fillStyle = "rgb("+r+","+g+","+b+")";
-	else
-		ctx.fillStyle = r;
-	ctx.fillRect(x, y, 1, 1);
-}
-
-function drawLine(x1, y1, x2, y2, r, g, b)
-{
+function setPixel(x, y, r, g, b) {
     if (typeof g !== "undefined" && typeof b !== "undefined")
-        ctx.strokeStyle = "rgb("+r+","+g+","+b+")";
+        ctx.fillStyle = "rgb(" + r + "," + g + "," + b + ")";
+    else
+        ctx.fillStyle = r;
+    ctx.fillRect(x, y, 1, 1);
+}
+
+function drawLine(x1, y1, x2, y2, r, g, b) {
+    if (typeof g !== "undefined" && typeof b !== "undefined")
+        ctx.strokeStyle = "rgb(" + r + "," + g + "," + b + ")";
     else
         ctx.strokeStyle = r;
-    
+
     ctx.beginPath();
     ctx.moveTo(x1, y1);
     ctx.lineTo(x2, y2);
@@ -401,8 +399,7 @@ function drawLine(x1, y1, x2, y2, r, g, b)
     ctx.stroke();
 }
 
-function sphericalToCartesian(r, phi, theta)
-{
+function sphericalToCartesian(r, phi, theta) {
     const k = Math.PI / 180.0;      // Conversion factor from degrees to radians
 
     const x = r * Math.sin(k * theta) * Math.cos(k * phi);
@@ -412,8 +409,7 @@ function sphericalToCartesian(r, phi, theta)
     return new Point3d(x, y, z);
 }
 
-function get_points_3d(d, points)
-{
+function get_points_3d(d, points) {
     let points2d = [];
     for (let p of points) {
         let point2d = d.point_3d(p);
@@ -447,10 +443,14 @@ function draw_main_axes(d) {
         function drawAxisScale(coordinate) {
             for (let i = 0; i <= a; i += dr) {
                 let pointsToDraw = [
-                    { p1: new Point3d(...(coordinate === 'x' ? [i, 0, -ddr] : coordinate === 'y' ? [0, i, -ddr] : [-ddr, 0, i])),
-                      p2: new Point3d(...(coordinate === 'x' ? [i, 0, ddr] : coordinate === 'y' ? [0, i, ddr] : [ddr, 0, i])) },
-                    { p1: new Point3d(...(coordinate === 'x' ? [-i, 0, -ddr] : coordinate === 'y' ? [0, -i, -ddr] : [-ddr, 0, -i])),
-                      p2: new Point3d(...(coordinate === 'x' ? [-i, 0, ddr] : coordinate === 'y' ? [0, -i, ddr] : [ddr, 0, -i])) }
+                    {
+                        p1: new Point3d(...(coordinate === 'x' ? [i, 0, -ddr] : coordinate === 'y' ? [0, i, -ddr] : [-ddr, 0, i])),
+                        p2: new Point3d(...(coordinate === 'x' ? [i, 0, ddr] : coordinate === 'y' ? [0, i, ddr] : [ddr, 0, i]))
+                    },
+                    {
+                        p1: new Point3d(...(coordinate === 'x' ? [-i, 0, -ddr] : coordinate === 'y' ? [0, -i, -ddr] : [-ddr, 0, -i])),
+                        p2: new Point3d(...(coordinate === 'x' ? [-i, 0, ddr] : coordinate === 'y' ? [0, -i, ddr] : [ddr, 0, -i]))
+                    }
                 ];
 
                 pointsToDraw.forEach(({ p1, p2 }) => {
@@ -479,7 +479,7 @@ function draw_observer_axes(d, d_obs, observer) {
     const vx = new Vector(M.a11, M.a12, M.a13);  // Base vectors of the observer's system
     const vy = new Vector(M.a21, M.a22, M.a23);
     const vz = new Vector(M.a31, M.a32, M.a33);
-    
+
     let px = Point3d.translate(observer, vx.multiplyByNumber(3));  // Endpoints of the observer's base vectors
     let py = Point3d.translate(observer, vy.multiplyByNumber(3));  // Aesthetically extended 3 times
     let pz = Point3d.translate(observer, vz.multiplyByNumber(3));
@@ -489,10 +489,10 @@ function draw_observer_axes(d, d_obs, observer) {
     // Color for the observer's system
     const observer_system_color = "rgb(192, 192, 192)";
 
-    if (d.point_3d(observer) && d.point_3d(new Point3d(0, 0, 0)) && 
-        d.point_3d(center) && d.point_3d(px) && 
+    if (d.point_3d(observer) && d.point_3d(new Point3d(0, 0, 0)) &&
+        d.point_3d(center) && d.point_3d(px) &&
         d.point_3d(py) && d.point_3d(pz)) {
-        
+
         let screenPoints = [observer, new Point3d(0, 0, 0), center, px, py, pz].map(p => d.point_3d(p));
 
         if (screenPoints.every(sp => sp)) {
@@ -599,8 +599,7 @@ function draw_observer_screen(d, d_obs) {
     drawLine(x[3], y[3], x[7], y[7], object_image_color);
 }
 
-function draw_cube(d)
-{
+function draw_cube(d) {
     // Transform points (3d -> 2d)
     let points2d = get_points_3d(d, k);
 
@@ -629,18 +628,16 @@ function draw_cube(d)
     drawLine(points2d[3].x, points2d[3].y, points2d[7].x, points2d[7].y, yellow);
 }
 
-function size_change(d)
-{
-	_("size_info").innerHTML = d;
-	w = d + "px";
-	_(canvas_id).style.width = w;
-	_(canvas_id).style.height = 3 * d / 4 + "px";
+function size_change(d) {
+    _("size_info").innerHTML = d;
+    w = d + "px";
+    _(canvas_id).style.width = w;
+    _(canvas_id).style.height = 3 * d / 4 + "px";
 }
 
-function set_zoom()
-{
-	width = canvas.width = canvas.clientWidth;
-	height = canvas.height = canvas.clientHeight;
+function set_zoom() {
+    width = canvas.width = canvas.clientWidth;
+    height = canvas.height = canvas.clientHeight;
 }
 
 function get_settings() {
@@ -666,12 +663,11 @@ function get_settings() {
     draw_scene();
 }
 
-function draw_scene()
-{
-	set_zoom();
-	
-	ctx.fillStyle = 'black';
-	ctx.fillRect(0, 0, width, height);
+function draw_scene() {
+    set_zoom();
+
+    ctx.fillStyle = 'black';
+    ctx.fillRect(0, 0, width, height);
 
     const scr_dist_meters = SCR_DIST / 100;
     const you = sphericalToCartesian(R, FI, TETA);
@@ -684,5 +680,5 @@ function draw_scene()
     draw_main_axes(d);                        // Draw the main coordinate system
     draw_observer_axes(d, d_obs, observer);   // Draw the observer's coordinate system
     draw_observer_screen(d, d_obs);           // Draw the observer's screen 
-	draw_cube(d);                             // Draw the cube
+    draw_cube(d);                             // Draw the cube
 }

@@ -10,7 +10,9 @@
     <link rel="stylesheet" type="text/css" href="mstyle.css">
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <style>
-        .container { width: 100%; }
+        .container {
+            width: 100%;
+        }
     </style>
 </head>
 
@@ -21,35 +23,49 @@
                 <h1 style="margin:20px auto; text-align:center;" id="tytul">Przykład 1</h1>
                 <div style="margin: 0 auto;">
                     <div id="ustawienia" style="float: left; margin: 0px 10px 20px 0px; width: 580px;">
-						<div style="border: 1px dashed #333; margin: 15px 5px 0 0; padding: 10px 10px;">
-						<b class="centertxt">Ustawienia</b>
-							Rozmiar:
-							<input type="range" id="wymiar" min="200" max="1600" value="1200" onmousemove="size_change(this.value)" onchange="size_change(this.value)" onmouseup="draw_scene();" style="vertical-align:middle;margin:0 5px;width:300px;"> (<span id="size_info">1200</span>/1600)
-							<br /> X obserwatora:
-							<input type="range" id="X_obs" min="-400" max="400" value="200" onmousemove="get_settings()" style="vertical-align:middle;margin:0 5px;width:300px;"> (<span id="X_obs_info">200</span>/400)
-							<br /> Y obserwatora:
-							<input type="range" id="Y_obs" min="-400" max="400" value="300" onmousemove="get_settings()" style="vertical-align:middle;margin:0 5px;width:300px;"> (<span id="Y_obs_info">300</span>/400)
-							<br /> Z obserwatora:
-							<input type="range" id="Z_obs" min="-400" max="400" value="-30" onmousemove="get_settings()" style="vertical-align:middle;margin:0 5px;width:300px;"> (<span id="Z_obs_info">-30</span>/400)
-							<div style="border:0px dashed #aaa;">
-								<input type="checkbox" id="os_x" onchange="pobierz_ustawienia()" checked>Oś Ox
-								<input type="checkbox" id="os_y" onchange="pobierz_ustawienia()" checked>Oś Oy
-								<br /> </div>
-							<input type="checkbox" id="osie" onchange="pobierz_ustawienia()" checked>Opisuj osie układu współrzędnych
-							<br />
-							Zoom: <span id="skala">40</span>
-							<br /> Współrzędne środka: (<span id="xc">0</span>; <span id="yc">0</span>)
-						</div>
+                        <div style="border: 1px dashed #333; margin: 15px 5px 0 0; padding: 10px 10px;">
+                            <b class="centertxt">Ustawienia</b>
+                            Rozmiar:
+                            <input type="range" id="wymiar" min="200" max="1600" value="1200"
+                                onmousemove="size_change(this.value)" onchange="size_change(this.value)"
+                                onmouseup="draw_scene();" style="vertical-align:middle;margin:0 5px;width:300px;">
+                            (<span id="size_info">1200</span>/1600)
+                            <br /> X obserwatora:
+                            <input type="range" id="X_obs" min="-400" max="400" value="200" onmousemove="get_settings()"
+                                style="vertical-align:middle;margin:0 5px;width:300px;"> (<span
+                                id="X_obs_info">200</span>/400)
+                            <br /> Y obserwatora:
+                            <input type="range" id="Y_obs" min="-400" max="400" value="300" onmousemove="get_settings()"
+                                style="vertical-align:middle;margin:0 5px;width:300px;"> (<span
+                                id="Y_obs_info">300</span>/400)
+                            <br /> Z obserwatora:
+                            <input type="range" id="Z_obs" min="-400" max="400" value="-30" onmousemove="get_settings()"
+                                style="vertical-align:middle;margin:0 5px;width:300px;"> (<span
+                                id="Z_obs_info">-30</span>/400)
+                            <div style="border:0px dashed #aaa;">
+                                <input type="checkbox" id="os_x" onchange="pobierz_ustawienia()" checked>Oś Ox
+                                <input type="checkbox" id="os_y" onchange="pobierz_ustawienia()" checked>Oś Oy
+                                <br />
+                            </div>
+                            <input type="checkbox" id="osie" onchange="pobierz_ustawienia()" checked>Opisuj osie układu
+                            współrzędnych
+                            <br />
+                            Zoom: <span id="skala">40</span>
+                            <br /> Współrzędne środka: (<span id="xc">0</span>; <span id="yc">0</span>)
+                        </div>
                     </div>
                     <div style="float: left; margin: 0px 0px 20px 0px;">
                         <div id="wykres" style="position:relative;">
-                            <canvas id="mainCanvas" width="1200" height="800" style="display: block;border:1px solid #333;cursor:move;margin: 20px auto 15px;width: 1200px;height: 800px;" onmousedown="clickCanvas(event);" onmouseup="generuj_link();">It looks like your browser does not support Canvas. Try FireFox, Chrome, Opera, or Safari instead.</canvas>
+                            <canvas id="mainCanvas" width="1200" height="800"
+                                style="display: block;border:1px solid #333;cursor:move;margin: 20px auto 15px;width: 1200px;height: 800px;"
+                                onmousedown="clickCanvas(event);" onmouseup="generuj_link();">It looks like your browser
+                                does not support Canvas. Try FireFox, Chrome, Opera, or Safari instead.</canvas>
                         </div>
                     </div>
-                </div> 
-				<script type="text/javascript" src="3dfx.js"></script>
+                </div>
+                <script type="text/javascript" src="3dfx.js"></script>
                 <script>
-                    $(document).ready(function() {
+                    $(document).ready(function () {
                         draw_scene();
                     });
                 </script>

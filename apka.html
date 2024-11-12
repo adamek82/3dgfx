@@ -10,7 +10,9 @@
     <link rel="stylesheet" type="text/css" href="mstyle.css">
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <style>
-        .container { width: 100%; }
+        .container {
+            width: 100%;
+        }
     </style>
 </head>
 
@@ -21,35 +23,56 @@
                 <h1 style="margin:20px auto; text-align:center;" id="tytul">Kostka</h1>
                 <div style="margin: 0 auto;">
                     <div id="ustawienia" style="float: left; margin: 0px 10px 20px 0px; width: 580px;">
-						<div style="border: 1px dashed #333; margin: 15px 5px 0 0; padding: 10px 10px;">
-						<b class="centertxt">Ustawienia</b>
-							Rozmiar:
-							<input type="range" id="wymiar" min="200" max="1600" value="800" onmousemove="size_change(this.value)" onchange="size_change(this.value)" onmouseup="size_change(this.value); get_settings();" style="vertical-align:middle;margin:0 5px;width:300px;"> (<span id="size_info">800</span>/1600)
-							<br /> Twoje R:
-							<input type="range" id="R" min="3" max="100" value="40" onmousemove="get_settings()" onmouseup="get_settings()" style="vertical-align:middle;margin:0 5px;width:300px;"> (<span id="R_info">50</span>/100)
-							<br /> Twoje Fi:
-							<input type="range" id="FI" min="0" max="360" value="60" onmousemove="get_settings()" onmouseup="get_settings()" style="vertical-align:middle;margin:0 5px;width:300px;"> (<span id="FI_info">45</span>/360)
-							<br /> Twoje Teta:
-							<input type="range" id="TETA" min="5" max="175" value="80" onmousemove="get_settings()" onmouseup="get_settings()" style="vertical-align:middle;margin:0 5px;width:300px;"> (<span id="TETA_info">75</span>/175)
-							<br />  Twoja odl. od ekranu:
-							<input type="range" id="SCR_DIST" min="1" max="100" value="50" onmousemove="get_settings()" onmouseup="get_settings()" style="vertical-align:middle;margin:0 5px;width:300px;"> (<span id="SCR_DIST_info">50</span>/100)
-							<br /> R obserwatora
-							<input type="range" id="R_obs" min="3" max="50" value="5" onmousemove="get_settings()" onmouseup="get_settings()" style="vertical-align:middle;margin:0 5px;width:300px;"> (<span id="R_obs_info">5</span>/100)
-							<br /> Fi obserwatora:
-							<input type="range" id="FI_obs" min="0" max="360" value="120" onmousemove="get_settings()" onmouseup="get_settings()" style="vertical-align:middle;margin:0 5px;width:300px;"> (<span id="FI_obs_info">120</span>/360)
-							<br /> Teta obserwatora:
-							<input type="range" id="TETA_obs" min="5" max="175" value="60" onmousemove="get_settings()" onmouseup="get_settings()" style="vertical-align:middle;margin:0 5px;width:300px;"> (<span id="TETA_obs_info">60</span>/175)
-						</div>
+                        <div style="border: 1px dashed #333; margin: 15px 5px 0 0; padding: 10px 10px;">
+                            <b class="centertxt">Ustawienia</b>
+                            Rozmiar:
+                            <input type="range" id="wymiar" min="200" max="1600" value="800"
+                                onmousemove="size_change(this.value)" onchange="size_change(this.value)"
+                                onmouseup="size_change(this.value); get_settings();"
+                                style="vertical-align:middle;margin:0 5px;width:300px;"> (<span
+                                id="size_info">800</span>/1600)
+                            <br /> Twoje R:
+                            <input type="range" id="R" min="3" max="100" value="40" onmousemove="get_settings()"
+                                onmouseup="get_settings()" style="vertical-align:middle;margin:0 5px;width:300px;">
+                            (<span id="R_info">50</span>/100)
+                            <br /> Twoje Fi:
+                            <input type="range" id="FI" min="0" max="360" value="60" onmousemove="get_settings()"
+                                onmouseup="get_settings()" style="vertical-align:middle;margin:0 5px;width:300px;">
+                            (<span id="FI_info">45</span>/360)
+                            <br /> Twoje Teta:
+                            <input type="range" id="TETA" min="5" max="175" value="80" onmousemove="get_settings()"
+                                onmouseup="get_settings()" style="vertical-align:middle;margin:0 5px;width:300px;">
+                            (<span id="TETA_info">75</span>/175)
+                            <br /> Twoja odl. od ekranu:
+                            <input type="range" id="SCR_DIST" min="1" max="100" value="50" onmousemove="get_settings()"
+                                onmouseup="get_settings()" style="vertical-align:middle;margin:0 5px;width:300px;">
+                            (<span id="SCR_DIST_info">50</span>/100)
+                            <br /> R obserwatora
+                            <input type="range" id="R_obs" min="3" max="50" value="5" onmousemove="get_settings()"
+                                onmouseup="get_settings()" style="vertical-align:middle;margin:0 5px;width:300px;">
+                            (<span id="R_obs_info">5</span>/100)
+                            <br /> Fi obserwatora:
+                            <input type="range" id="FI_obs" min="0" max="360" value="120" onmousemove="get_settings()"
+                                onmouseup="get_settings()" style="vertical-align:middle;margin:0 5px;width:300px;">
+                            (<span id="FI_obs_info">120</span>/360)
+                            <br /> Teta obserwatora:
+                            <input type="range" id="TETA_obs" min="5" max="175" value="60" onmousemove="get_settings()"
+                                onmouseup="get_settings()" style="vertical-align:middle;margin:0 5px;width:300px;">
+                            (<span id="TETA_obs_info">60</span>/175)
+                        </div>
                     </div>
                     <div style="float: left; margin: 0px 0px 20px 0px;">
                         <div id="wykres" style="position:relative;">
-                            <canvas id="mainCanvas" width="800" height="600" style="display: block;border:1px solid #333;cursor:move;margin: 20px auto 15px;width: 800px;height: 600px;" onmousedown="clickCanvas(event);" onmouseup="generuj_link();">It looks like your browser does not support Canvas. Try FireFox, Chrome, Opera, or Safari instead.</canvas>
+                            <canvas id="mainCanvas" width="800" height="600"
+                                style="display: block;border:1px solid #333;cursor:move;margin: 20px auto 15px;width: 800px;height: 600px;"
+                                onmousedown="clickCanvas(event);" onmouseup="generuj_link();">It looks like your browser
+                                does not support Canvas. Try FireFox, Chrome, Opera, or Safari instead.</canvas>
                         </div>
                     </div>
-                </div> 
-				<script type="text/javascript" src="3dfx_4_app.js"></script>
+                </div>
+                <script type="text/javascript" src="3dfx_4_app.js"></script>
                 <script>
-                    $(document).ready(function() {
+                    $(document).ready(function () {
                         get_settings();
                     });
                 </script>
