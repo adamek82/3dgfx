@@ -17,7 +17,7 @@ class Point2d {
 
     // Copy constructor
     static copy(point) {
-        return new Point3d(point.x, point.y);
+        return new Point2d(point.x, point.y);
     }
 
     // Assign operator
@@ -66,7 +66,7 @@ class Point3d {
 
     static translate(vp1, vp2) {
         if (vp1 instanceof Vector && vp2 instanceof Point3d)
-            return new Point3d(vp1.vx + vp2.x, vp1.vy + vp2.y + vp1.vz + vp2.z);
+            return new Point3d(vp1.vx + vp2.x, vp1.vy + vp2.y, vp1.vz + vp2.z);
         else if (vp1 instanceof Point3d && vp2 instanceof Vector)
             return new Point3d(vp1.x + vp2.vx, vp1.y + vp2.vy, vp1.z + vp2.vz);
         else
@@ -197,7 +197,7 @@ class Matrix {
                 mn1 * mn2.a31, mn1 * mn2.a32, mn1 * mn2.a33);
         }
         else {
-            return new Matrix(mn2 * mn1.a11, mn2 * mn1.a12, mn1 * mn1.a13,
+            return new Matrix(mn2 * mn1.a11, mn2 * mn1.a12, mn2 * mn1.a13,
                 mn2 * mn1.a21, mn2 * mn1.a22, mn2 * mn1.a23,
                 mn2 * mn1.a31, mn2 * mn1.a32, mn2 * mn1.a33);
         }
