@@ -73,7 +73,7 @@ class Matrix {
             matrix.a12 * (matrix.a21 * matrix.a33 - matrix.a31 * matrix.a23) +
             matrix.a13 * (matrix.a21 * matrix.a32 - matrix.a31 * matrix.a22);
 
-        if (relativeDifference(det, 0) < REL_TOLERANCE) {
+        if (Math.abs(det) < REL_TOLERANCE) {
             throw new Error("Matrix is not invertible");
         }
 

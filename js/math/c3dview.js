@@ -37,7 +37,7 @@ class C3DView {
         let newp = Point3d.translate(p, this.f_R);
         newp = Matrix.multiply_by_point(this.M, newp);
 
-        if (relativeDifference(newp.z, 0) < REL_TOLERANCE) {
+        if (Math.abs(newp.z) < REL_TOLERANCE) {
             // If newp.z is too close to zero, return false to indicate invalid transformation
             return false;
         } else {
@@ -51,7 +51,7 @@ class C3DView {
         let newp = Point3d.translate(p, this.f_R);
         newp = Matrix.multiply_by_point(this.M, newp);
 
-        if (relativeDifference(newp.z, 0) < REL_TOLERANCE) {
+        if (Math.abs(newp.z) < REL_TOLERANCE) {
             return false;
         }
 
