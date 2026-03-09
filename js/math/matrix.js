@@ -1,15 +1,24 @@
 class Matrix {
     constructor(a11 = 1, a12 = 0, a13 = 0, a21 = 0, a22 = 1, a23 = 0, a31 = 0, a32 = 0, a33 = 1) {
+        // Constructor with three row vectors
         if (a11 instanceof Vector && a12 instanceof Vector && a13 instanceof Vector) {
             this.a11 = a11.vx; this.a12 = a11.vy; this.a13 = a11.vz;
             this.a21 = a12.vx; this.a22 = a12.vy; this.a23 = a12.vz;
             this.a31 = a13.vx; this.a32 = a13.vy; this.a33 = a13.vz;
+            return;
         }
-        else {
+
+        // Constructor with 9 numeric components
+        if (typeof a11 === "number" && typeof a12 === "number" && typeof a13 === "number" &&
+            typeof a21 === "number" && typeof a22 === "number" && typeof a23 === "number" &&
+            typeof a31 === "number" && typeof a32 === "number" && typeof a33 === "number") {
             this.a11 = a11; this.a12 = a12; this.a13 = a13;
             this.a21 = a21; this.a22 = a22; this.a23 = a23;
             this.a31 = a31; this.a32 = a32; this.a33 = a33;
+            return;
         }
+
+        throw new Error("Matrix constructor expects either (Vector, Vector, Vector) or 9 numeric components");
     }
 
     // Copy constructor
@@ -21,7 +30,8 @@ class Matrix {
 
     static multiply(mn1, mn2) {
         if (mn1 instanceof Matrix && mn2 instanceof Matrix) {
-            return new Matrix(mn1.a11 * mn2.a11 + mn1.a12 * mn2.a21 + mn1.a13 * mn2.a31,
+            return new Matrix(
+                mn1.a11 * mn2.a11 + mn1.a12 * mn2.a21 + mn1.a13 * mn2.a31,
                 mn1.a11 * mn2.a12 + mn1.a12 * mn2.a22 + mn1.a13 * mn2.a32,
                 mn1.a11 * mn2.a13 + mn1.a12 * mn2.a23 + mn1.a13 * mn2.a33,
                 mn1.a21 * mn2.a11 + mn1.a22 * mn2.a21 + mn1.a23 * mn2.a31,
@@ -32,16 +42,22 @@ class Matrix {
                 mn1.a31 * mn2.a13 + mn1.a32 * mn2.a23 + mn1.a33 * mn2.a33
             );
         }
-        else if (mn2 instanceof Matrix) {
-            return new Matrix(mn1 * mn2.a11, mn1 * mn2.a12, mn1 * mn2.a13,
+
+        if (typeof mn1 === "number" && mn2 instanceof Matrix) {
+            return new Matrix(
+                mn1 * mn2.a11, mn1 * mn2.a12, mn1 * mn2.a13,
                 mn1 * mn2.a21, mn1 * mn2.a22, mn1 * mn2.a23,
                 mn1 * mn2.a31, mn1 * mn2.a32, mn1 * mn2.a33);
         }
-        else {
-            return new Matrix(mn2 * mn1.a11, mn2 * mn1.a12, mn2 * mn1.a13,
+
+        if (mn1 instanceof Matrix && typeof mn2 === "number") {
+            return new Matrix(
+                mn2 * mn1.a11, mn2 * mn1.a12, mn2 * mn1.a13,
                 mn2 * mn1.a21, mn2 * mn1.a22, mn2 * mn1.a23,
                 mn2 * mn1.a31, mn2 * mn1.a32, mn2 * mn1.a33);
         }
+
+        throw new Error("Matrix.multiply expects (Matrix, Matrix), (number, Matrix), or (Matrix, number)");
     }
 
     static multiply_by_number(matrix, number) {

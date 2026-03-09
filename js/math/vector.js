@@ -7,12 +7,18 @@ class Vector {
             this.vx = endPoint.x - begPoint.x;
             this.vy = endPoint.y - begPoint.y;
             this.vz = endPoint.z - begPoint.z;
-        } else {
-            // Constructor with components
+            return;
+        }
+
+        // Constructor with components
+        if (typeof vx === "number" && typeof vy === "number" && typeof vz === "number") {
             this.vx = vx;
             this.vy = vy;
             this.vz = vz;
+            return;
         }
+
+        throw new Error("Vector constructor expects either (Point3d, Point3d) or (number, number, number)");
     }
 
     // Copy constructor

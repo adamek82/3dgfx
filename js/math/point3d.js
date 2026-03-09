@@ -29,9 +29,10 @@ class Point3d {
     static translate(vp1, vp2) {
         if (vp1 instanceof Vector && vp2 instanceof Point3d)
             return new Point3d(vp1.vx + vp2.x, vp1.vy + vp2.y, vp1.vz + vp2.z);
-        else if (vp1 instanceof Point3d && vp2 instanceof Vector)
+
+        if (vp1 instanceof Point3d && vp2 instanceof Vector)
             return new Point3d(vp1.x + vp2.vx, vp1.y + vp2.vy, vp1.z + vp2.vz);
-        else
-            return new Point3d();     // TODO: consider throwing an exception here
+
+        throw new Error("Point3d.translate expects (Vector, Point3d) or (Point3d, Vector)");
     }
 }
