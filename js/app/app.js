@@ -16,6 +16,9 @@ ctx.lineWidth = 1;
 ctx.lineCap = "butt";
 ctx.lineJoin = "miter";
 
+var imageData,
+    buffer;
+
 function get_points_3d(d, points) {
     let points2d = [];
     for (let p of points) {
@@ -292,6 +295,15 @@ function set_zoom() {
     height = canvas.height = canvas.clientHeight;
 }
 
+function begin_frame() {
+    imageData = ctx.getImageData(0, 0, width, height);
+    initPixelBuffer(width, height, imageData);
+}
+
+function end_frame() {
+    ctx.putImageData(imageData, 0, 0);
+}
+
 function get_settings() {
     width = canvas.width;
     height = canvas.height;
@@ -321,6 +333,8 @@ function draw_scene() {
     ctx.fillStyle = 'black';
     ctx.fillRect(0, 0, width, height);
 
+    begin_frame();
+
     const scr_dist_meters = SCR_DIST / 100;
     const you = sphericalToCartesian(R, FI, TETA);
     const observer = sphericalToCartesian(R_obs, FI_obs, TETA_obs);
@@ -334,4 +348,6 @@ function draw_scene() {
     draw_view_frustum(d, d_obs, observer);    // Draw the observer's viewing frustum edges
     draw_observer_screen(d, d_obs);           // Draw the observer's screen
     draw_cube(d);                             // Draw the cube
+
+    end_frame();
 }
