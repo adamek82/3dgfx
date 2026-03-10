@@ -296,8 +296,13 @@ function set_zoom() {
 }
 
 function begin_frame() {
-    imageData = ctx.getImageData(0, 0, width, height);
+    imageData = ctx.createImageData(width, height);
     initPixelBuffer(width, height, imageData);
+
+    // make background opaque black
+    for (let i = 3; i < buffer.length; i += 4) {
+        buffer[i] = 255;
+    }
 }
 
 function end_frame() {
@@ -329,9 +334,6 @@ function get_settings() {
 
 function draw_scene() {
     set_zoom();
-
-    ctx.fillStyle = 'black';
-    ctx.fillRect(0, 0, width, height);
 
     begin_frame();
 

@@ -46,20 +46,24 @@ function parseColor(c) {
 }
 
 function drawLine(x0, y0, x1, y1, r, g, b) {
+
     if (typeof g === "undefined") {
         [r, g, b] = parseColor(r);
     }
 
-    x0 = Math.round(x0);
-    y0 = Math.round(y0);
-    x1 = Math.round(x1);
-    y1 = Math.round(y1);
+    x0 |= 0;
+    y0 |= 0;
+    x1 |= 0;
+    y1 |= 0;
 
-    let dx = Math.abs(x1 - x0);
-    let dy = Math.abs(y1 - y0);
+    let dx = x1 - x0;
+    let dy = y1 - y0;
 
-    let sx = x0 < x1 ? 1 : -1;
-    let sy = y0 < y1 ? 1 : -1;
+    const sx = dx >= 0 ? 1 : -1;
+    const sy = dy >= 0 ? 1 : -1;
+
+    dx = dx * sx;
+    dy = dy * sy;
 
     let err = dx - dy;
 
@@ -70,7 +74,7 @@ function drawLine(x0, y0, x1, y1, r, g, b) {
         if (x0 === x1 && y0 === y1)
             break;
 
-        let e2 = 2 * err;
+        const e2 = err << 1;   // faster than 2 * err
 
         if (e2 > -dy) {
             err -= dy;
