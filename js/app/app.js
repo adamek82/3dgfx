@@ -140,6 +140,51 @@ function draw_observer_axes(d, d_obs, observer) {
     }
 }
 
+//  Drawing the observer's viewing frustum
+//  Four rays are drawn from the observer position through the corners
+//  of the observer's virtual screen.
+//  First, the screen corners are described in the observer's local system
+//  and transformed back to the global system using d_obs.
+//  Then, those rays are projected onto your screen using d.
+function draw_view_frustum(d, d_obs, observer) {
+    // Screen corners in the observer's local coordinate system
+    const p_screen = [
+        new Point3d(-e_width / 2,  e_height / 2, e_dist),
+        new Point3d( e_width / 2,  e_height / 2, e_dist),
+        new Point3d( e_width / 2, -e_height / 2, e_dist),
+        new Point3d(-e_width / 2, -e_height / 2, e_dist)
+    ];
+
+    const observerScreenPoint = d.point_3d(observer);
+    if (!observerScreenPoint) {
+        return;
+    }
+
+    const frustumColor = "rgb(255, 0, 0)";
+
+    for (const corner of p_screen) {
+        // Transform screen corner from observer space back to world space
+        const cornerWorld = d_obs.inverse_transform(corner);
+
+        // Direction from observer to that corner
+        const ray = new Vector(observer, cornerWorld).multiplyByNumber(R_obs);
+
+        // Extend the ray to get a visible frustum edge
+        const farPoint = Point3d.translate(observer, ray);
+
+        const farScreenPoint = d.point_3d(farPoint);
+        if (!farScreenPoint) {
+            return;
+        }
+
+        drawLine(
+            observerScreenPoint.x, observerScreenPoint.y,
+            farScreenPoint.x, farScreenPoint.y,
+            frustumColor
+        );
+    }
+}
+
 //  Drawing the virtual observer's screen
 //  Then, drawing the image on that small screen
 //  First, the observer's projector (d_obs) is used to find metric coordinates
@@ -282,6 +327,7 @@ function draw_scene() {
 
     draw_main_axes(d);                        // Draw the main coordinate system
     draw_observer_axes(d, d_obs, observer);   // Draw the observer's coordinate system
+    draw_view_frustum(d, d_obs, observer);    // Draw the observer's viewing frustum edges
     draw_observer_screen(d, d_obs);           // Draw the observer's screen
     draw_cube(d);                             // Draw the cube
 }
