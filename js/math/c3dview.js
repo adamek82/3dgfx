@@ -20,7 +20,7 @@ class C3DView {
         // local x' axis vector of the observer
         let v1 = Vector.cross_product(vertical, v3);
         v1.normalize();
-        // ;ocal vector of the observer's y' axis
+        // local vector of the observer's y' axis
         let v2 = Vector.cross_product(v3, v1);
         // left-handedness of the observer's system
         v1.negate();
