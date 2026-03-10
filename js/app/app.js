@@ -12,6 +12,10 @@ var canvas_id = "mainCanvas",
     FI_obs = 120,               //
     TETA_obs = 60;              //
 
+ctx.lineWidth = 1;
+ctx.lineCap = "butt";
+ctx.lineJoin = "miter";
+
 function get_points_3d(d, points) {
     let points2d = [];
     for (let p of points) {
