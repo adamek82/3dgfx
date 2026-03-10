@@ -290,6 +290,27 @@ function size_change(d) {
     _(canvas_id).style.height = 3 * d / 4 + "px";
 }
 
+/*
+ * Keep the canvas backing store size equal to its CSS size.
+ *
+ * This makes the projected scene size predictable relative to the visible
+ * canvas area: the same camera parameters and object coordinates produce
+ * the same overall composition inside the canvas, regardless of DPI-aware
+ * scaling logic.
+ *
+ * The downside is that on displays with devicePixelRatio != 1
+ * (for example 125% or 150% scaling, which is common on modern 4K monitors),
+ * one logical canvas pixel does not necessarily match one physical screen pixel.
+ * In such cases the browser or OS may resample the final image slightly.
+ *
+ * A more DPI-correct approach would scale canvas.width / canvas.height by
+ * window.devicePixelRatio, but that also changes the effective rendering
+ * resolution and makes the whole scene appear smaller unless additional
+ * compensation is introduced.
+ *
+ * For this project we prefer stable scene proportions and simpler logic over
+ * perfect physical-pixel matching, so this deliberate compromise is kept here.
+ */
 function set_zoom() {
     width = canvas.width = canvas.clientWidth;
     height = canvas.height = canvas.clientHeight;
