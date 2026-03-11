@@ -320,7 +320,12 @@ function begin_frame() {
     imageData = ctx.createImageData(width, height);
     initPixelBuffer(width, height, imageData);
 
-    // make background opaque black
+    /*
+     * createImageData() initializes pixels as (0, 0, 0, 0), i.e. black but fully transparent.
+     * If left unchanged, the canvas background would show through instead of appearing black.
+     * Setting every alpha byte to 255 turns all pixels into opaque black (0, 0, 0, 255),
+     * so the frame starts with a solid black background.
+     */
     for (let i = 3; i < buffer.length; i += 4) {
         buffer[i] = 255;
     }
