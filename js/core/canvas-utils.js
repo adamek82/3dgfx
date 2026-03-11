@@ -1,17 +1,21 @@
-function setPixel(x, y, r, g, b) {
-    if (typeof g !== "undefined" && typeof b !== "undefined")
-        ctx.fillStyle = "rgb(" + r + "," + g + "," + b + ")";
-    else
-        ctx.fillStyle = r;
+const COLOR_BLACK      = [0, 0, 0];
+const COLOR_RED        = [255, 0, 0];
+const COLOR_GREEN      = [0, 255, 0];
+const COLOR_BLUE       = [0, 0, 255];
+const COLOR_YELLOW     = [255, 255, 0];
+const COLOR_LIGHT_GRAY = [192, 192, 192];
 
+function colorToCss(color) {
+    return `rgb(${color[0]}, ${color[1]}, ${color[2]})`;
+}
+
+function setPixel(x, y, color) {
+    ctx.fillStyle = colorToCss(color);
     ctx.fillRect(x, y, 1, 1);
 }
 
-function drawLineCanvas(x1, y1, x2, y2, r, g, b) {
-    if (typeof g !== "undefined" && typeof b !== "undefined")
-        ctx.strokeStyle = "rgb(" + r + "," + g + "," + b + ")";
-    else
-        ctx.strokeStyle = r;
+function drawLineCanvas(x1, y1, x2, y2, color) {
+    ctx.strokeStyle = colorToCss(color);
 
     ctx.beginPath();
     ctx.moveTo(x1 + 0.5, y1 + 0.5);
@@ -25,15 +29,15 @@ function initPixelBuffer(w, h, imageData) {
     buffer = imageData.data;
 }
 
-function setPixelFast(x, y, r, g, b) {
+function setPixelFast(x, y, color) {
     if (x < 0 || y < 0 || x >= width || y >= height)
         return;
 
     const i = (y * width + x) * 4;
 
-    buffer[i] = r;
-    buffer[i + 1] = g;
-    buffer[i + 2] = b;
+    buffer[i]     = color[0];
+    buffer[i + 1] = color[1];
+    buffer[i + 2] = color[2];
     buffer[i + 3] = 255;
 }
 
@@ -45,12 +49,7 @@ function parseColor(c) {
     return c;
 }
 
-function drawLine(x0, y0, x1, y1, r, g, b) {
-
-    if (typeof g === "undefined") {
-        [r, g, b] = parseColor(r);
-    }
-
+function drawLine(x0, y0, x1, y1, color) {
     x0 |= 0;
     y0 |= 0;
     x1 |= 0;
@@ -68,8 +67,7 @@ function drawLine(x0, y0, x1, y1, r, g, b) {
     let err = dx - dy;
 
     while (true) {
-
-        setPixelFast(x0, y0, r, g, b);
+        setPixelFast(x0, y0, color);
 
         if (x0 === x1 && y0 === y1)
             break;

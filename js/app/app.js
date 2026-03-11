@@ -39,7 +39,7 @@ function draw_main_axes(d) {
     const screenPoints = get_points_3d(d, points);
 
     if (screenPoints) {
-        const axes_color = "rgb(192, 192, 192)";
+        const axes_color = COLOR_LIGHT_GRAY;
         // Draw X axis
         drawLine(screenPoints[0].x, screenPoints[0].y, screenPoints[1].x, screenPoints[1].y, axes_color);
         // Draw Y axis
@@ -97,7 +97,7 @@ function draw_observer_axes(d, d_obs, observer) {
     let xo, yo, x0, y0, xc, yc, x1, y1, x2, y2, x3, y3;  // Screen equivalents
 
     // Color for the observer's system
-    const observer_system_color = "rgb(192, 192, 192)";
+    const observer_system_color = COLOR_LIGHT_GRAY;
 
     if (d.point_3d(observer) && d.point_3d(new Point3d(0, 0, 0)) &&
         d.point_3d(center) && d.point_3d(px) &&
@@ -114,7 +114,7 @@ function draw_observer_axes(d, d_obs, observer) {
             [x3, y3] = [screenPoints[5].x, screenPoints[5].y];
 
             // Color for the observer's optical axis
-            const observer_optical_axis_color = "rgb(255, 0, 0)";
+            const observer_optical_axis_color = COLOR_RED;
             drawLine(xo, yo, xc, yc, observer_optical_axis_color);
 
             drawLine(xo, yo, x1, y1, observer_system_color);  // X' axis
@@ -167,7 +167,7 @@ function draw_view_frustum(d, d_obs, observer) {
         return;
     }
 
-    const frustumColor = "rgb(255, 0, 0)";
+    const frustumColor = COLOR_RED;
 
     for (const corner of p_screen) {
         // Transform screen corner from observer space back to world space
@@ -218,7 +218,7 @@ function draw_observer_screen(d, d_obs) {
         pe[i] = new Point2d(screenPoint.x, screenPoint.y);
     }
 
-    const observer_screen_border_color = "rgb(0, 255, 0)";
+    const observer_screen_border_color = COLOR_GREEN;
     for (let i = 0; i < 4; i++) {
         drawLine(pe[i].x, pe[i].y, pe[(i + 1) % 4].x, pe[(i + 1) % 4].y, observer_screen_border_color);
     }
@@ -237,7 +237,7 @@ function draw_observer_screen(d, d_obs) {
         y[i] = screenPoint.y;
     }
 
-    const object_image_color = "rgb(0, 0, 255)";
+    const object_image_color = COLOR_BLUE;
     drawLine(x[0], y[0], x[1], y[1], object_image_color);  // Base of the cube/pyramid
     drawLine(x[1], y[1], x[2], y[2], object_image_color);
     drawLine(x[2], y[2], x[3], y[3], object_image_color);
@@ -262,7 +262,7 @@ function draw_cube(d) {
         return;
 
     // Set the color to yellow for the lines
-    const yellow = "rgb(255, 255, 0)";
+    const yellow = COLOR_YELLOW;
 
     // Draw the base of the cube
     drawLine(points2d[0].x, points2d[0].y, points2d[1].x, points2d[1].y, yellow);
